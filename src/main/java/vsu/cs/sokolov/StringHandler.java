@@ -3,6 +3,8 @@ package vsu.cs.sokolov;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringHandler {
 
@@ -42,6 +44,9 @@ public class StringHandler {
     }
 
     private static int getAmountOfWords(String sentence) {
+        Pattern p = Pattern.compile("[a-zA-ZА-Яа-я0-9]");
+        Matcher matcher = p.matcher(sentence);
 
+        return matcher.groupCount();
     }
 }
