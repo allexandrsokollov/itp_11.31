@@ -1,7 +1,6 @@
 package vsu.cs.sokolov;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +9,8 @@ public class StringHandler {
 
     public static String findTheLongestSentence(String text) {
 
+        String[] dividedText = getDividedIntoSentencesText(text, new char[] {'.', '!', '?'});
+        String longestSentence;
 
         return null;
     }
