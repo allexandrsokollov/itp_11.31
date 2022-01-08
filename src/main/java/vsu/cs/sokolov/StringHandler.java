@@ -9,11 +9,12 @@ public class StringHandler {
 
     public static String findTheLongestSentence(String text) {
 
-        String[] dividedText = getDividedIntoSentencesText(text, new char[] {'.', '!', '?'});
-        StringBuilder longestSentence = new StringBuilder("");
+        String[] dividedText = getSentencesWithoutStartingSpaces(
+                getDividedIntoSentencesText(text, new char[] {'.', '!', '?'}));
+        StringBuilder longestSentence = new StringBuilder();
 
         for (String sentence : dividedText) {
-            if (sentence.length() > longestSentence.length()) {
+            if (getAmountOfWords(sentence) > getAmountOfWords(longestSentence.toString())) {
                 longestSentence.replace(0, longestSentence.length(), sentence);
             }
         }
@@ -51,9 +52,44 @@ public class StringHandler {
     }
 
     private static int getAmountOfWords(String sentence) {
-        Pattern p = Pattern.compile("[a-zA-ZА-Яа-я0-9]");
-        Matcher matcher = p.matcher(sentence);
+        Pattern toDivide = Pattern.compile("[^a-zA-ZА-Яа-я0-9]");
+        Pattern pattern = Pattern.compile("[a-zA-ZА-Яа-я0-9]");
+        Matcher matcher;
+        String[] words = toDivide.split(sentence);
+        int counter = 0;
+        for (String str:
+             words) {
+            matcher = pattern.matcher(str);
 
-        return matcher.groupCount();
+            if (matcher.find()) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    private static String[] getSentencesWithoutStartingSpaces (String[] sentences) {
+        StringBuilder tempSentence;
+        String[] result = new String[sentences.length];
+
+        int i = 0;
+        for (String sentence:
+             sentences) {
+            tempSentence = new StringBuilder(sentence);
+
+            for (int j = 0; j < tempSentence.length(); j++) {
+
+                if (tempSentence.charAt(j) == ' ') {
+                    tempSentence.deleteCharAt(j);
+
+                } else {
+                    break;
+                }
+            }
+            result[i++] = new String(tempSentence);
+            tempSentence.replace(0, tempSentence.length(), "");
+        }
+
+        return result;
     }
 }
