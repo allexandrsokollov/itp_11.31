@@ -57,6 +57,7 @@ public class StringHandler {
         Matcher matcher;
         String[] words = toDivide.split(sentence);
         int counter = 0;
+
         for (String str:
              words) {
             matcher = pattern.matcher(str);
