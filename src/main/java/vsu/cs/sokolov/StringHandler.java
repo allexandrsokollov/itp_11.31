@@ -10,9 +10,15 @@ public class StringHandler {
     public static String findTheLongestSentence(String text) {
 
         String[] dividedText = getDividedIntoSentencesText(text, new char[] {'.', '!', '?'});
-        String longestSentence;
+        StringBuilder longestSentence = new StringBuilder("");
 
-        return null;
+        for (String sentence : dividedText) {
+            if (sentence.length() > longestSentence.length()) {
+                longestSentence.replace(0, longestSentence.length(), sentence);
+            }
+        }
+
+        return longestSentence.toString();
     }
 
     private static String[] getDividedIntoSentencesText(String text, char[] dividers) {
